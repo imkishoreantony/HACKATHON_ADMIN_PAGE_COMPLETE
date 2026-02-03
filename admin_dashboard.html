@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Token Dashboard</title>
+    <link rel="stylesheet" href="dashboard_style.css">
+</head>
+<body>
+
+<div class="dashboard">
+    <h2>Admin Dashboard</h2>
+
+    <div class="card">
+        <h3>Status</h3>
+        <p id="status">Running</p>
+
+        <h3>Current Token</h3>
+        <p id="tokenNumber">1</p>
+
+        <button onclick="nextToken()">NEXT</button>
+        <button onclick="pauseQueue()">PAUSE</button>
+        <button onclick="resumeQueue()">RESUME</button>
+        <button onclick="endQueue()">QUEUE END</button>
+        <button onclick="exitAdmin()">EXIT</button>
+    </div>
+</div>
+
+<script>
+    let token = localStorage.getItem("currentToken");
+    let status = localStorage.getItem("queueStatus");
+
+    if (token === null) {
+        token = 1;
+        localStorage.setItem("currentToken", token);
+    } else {
+        token = parseInt(token);
+    }
+
+    if (status === null) {
+        status = "Running";
+        localStorage.setItem("queueStatus", status);
+    }
+
+    document.getElementById("tokenNumber").innerText = token;
+    document.getElementById("status").innerText = status;
+
+    function nextToken() {
+        if (localStorage.getItem("queueStatus") === "Running") {
+            token++;
+            localStorage.setItem("currentToken", token);
+            document.getElementById("tokenNumber").innerText = token;
+        } else {
+            alert("Queue is not running");
+        }
+    }
+
+    function pauseQueue() {
+        localStorage.setItem("queueStatus", "Paused");
+        document.getElementById("status").innerText = "Paused";
+    }
+
+    function resumeQueue() {
+        localStorage.setItem("queueStatus", "Running");
+        document.getElementById("status").innerText = "Running";
+    }
+
+    function endQueue() {
+        localStorage.setItem("queueStatus", "Ended");
+        document.getElementById("status").innerText = "Queue Closed";
+    }
+
+    function exitAdmin() {
+        window.location.href = "admin_login.html";
+    }
+</script>
+
+</body>
+</html>

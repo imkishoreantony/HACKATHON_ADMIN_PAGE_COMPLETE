@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Signup</title>
+    <link rel="stylesheet" href="admin_style.css">
+</head>
+<body>
+
+<div class="login-container">
+    <h1 class="brand">Welcome to <span>Q-Track</span></h1>
+
+    <h2>Admin Signup</h2>
+
+    <input type="text" id="signupId" placeholder="Create Admin ID"><br><br>
+    <input type="password" id="signupPassword" placeholder="Create Password"><br><br>
+
+    <button onclick="signup()">Signup</button>
+</div>
+
+<script>
+function signup() {
+    const id = document.getElementById("signupId").value;
+    const pass = document.getElementById("signupPassword").value;
+
+    if (id === "" || pass === "") {
+        alert("Please fill all fields");
+        return;
+    }
+
+    localStorage.setItem("adminId", id);
+    localStorage.setItem("adminPassword", pass);
+
+    alert("Signup successful!");
+
+    // 🔴 THIS LINE IS THE KEY
+    window.location.href = "./admin_login.html";
+}
+</script>
+
+</body>
+</html>
